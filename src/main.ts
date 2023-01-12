@@ -127,4 +127,10 @@ export class App
   }
 }
 
-new App();
+try {
+  new App();
+}
+catch(err)
+{
+  console.error(err.message || err);
+}
