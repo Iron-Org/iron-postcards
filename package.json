@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only ./src/main.ts",
-    "build": "rimraf ./dist && tsc --build"
+    "build": "rimraf ./dist && tsc --build",
+    "start:prod": "node /etc/iron-postcards/dist/main.js"
   },
   "author": "",
   "license": "ISC",
