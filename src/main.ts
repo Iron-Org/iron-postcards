@@ -129,7 +129,6 @@ export class App
 
 try {
   const _ = new App();
-  console.log("FOI");
 }
 catch(err)
 {
