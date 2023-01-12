@@ -128,7 +128,8 @@ export class App
 }
 
 try {
-  new App();
+  const _ = new App();
+  console.log("FOI");
 }
 catch(err)
 {
