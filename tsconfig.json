@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+      "baseUrl": "./src",
+      "skipLibCheck": true,
+      "module": "commonjs",
+      "declaration": false,
+      "noImplicitAny": false,
+      "removeComments": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "target": "es6",
+      "outDir": "./dist"
+  }
+}
