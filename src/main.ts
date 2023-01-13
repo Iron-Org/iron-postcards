@@ -19,20 +19,14 @@ export class App
       let password = req.headers['password'];
 
       if (password !== process.env.API_PASSWORD)
-        return res.json({
-          status: false,
-          message: 'INVALID_PASSWORD'
-        });
+        return res.send('ERROR_INVALID_PASSWORD');
 
       const { image_name, message, author } = req.body;
 
       const imagePath = process.env.TEMPLATES_PATH + image_name + '.png';
 
       if (!fs.existsSync(imagePath))
-        return res.json({
-          status: false,
-          message: 'TEMPLATE_NOT_FOUND'
-        });
+        return res.send('ERROR_TEMPLATE_NOT_FOUND');
 
       const templateWidth = parseInt(process.env.TEMPLATE_WIDTH);
       const templateHeight = parseInt(process.env.TEMPLATE_HEIGHT);
@@ -42,18 +36,12 @@ export class App
       const lines = this.getLines(context, message.split("").join(String.fromCharCode(8202)), parseInt(process.env.TEXT_MAX_WIDTH));
 
       if (lines.length > parseInt(process.env.LINE_LIMIT))
-        return res.json({
-          status: false,
-          message: 'LINE_LIMIT'
-        });
+        return res.send('ERROR_LINE_LIMIT');
 
       const templateImage = await loadImage(imagePath);
 
       if (!templateImage)
-        return res.json({
-          status: false,
-          message: 'TEMPLATE_NOT_LOADED'
-        });
+        return res.send('ERROR_TEMPLATE_NOT_LOADED');
 
       context.clearRect(0, 0, templateWidth, templateHeight);
       context.drawImage(templateImage, 0, 0, templateWidth, templateHeight);
@@ -73,18 +61,12 @@ export class App
       const image = canvas.toBuffer('image/png');
 
       if (!image)
-        return res.json({
-          status: false,
-          message: 'IMAGE_NOT_GENERATED'
-        });
+        return res.send('ERROR_IMAGE_NOT_GENERATED');
 
       const uid = this.randomId();
       fs.writeFileSync(process.env.OUTPUT_PATH + uid + '.png', image);
 
-      return res.json({
-        status: true,
-        uid
-      });
+      return res.send(uid);
     });
 
     this._server = http.createServer(this._express);
